@@ -1,0 +1,113 @@
+{
+  "translation": {
+    "header": {
+      "title": "JM NVMMIS",
+      "subtitle": "Painel de Administração",
+      "logout": "Sair",
+      "newCoin": "Nova Moeda",
+      "back": "Voltar"
+    },
+    "login": {
+      "title": "Entrar",
+      "email": "Email",
+      "password": "Senha",
+      "submit": "Entrar",
+      "loading": "Entrando..."
+    },
+    "dashboard": {
+      "title": "Painel de Controle",
+      "stats": {
+        "coinTypes": "Tipos de Moedas",
+        "totalUnits": "unidades totais",
+        "active": "Ativas",
+        "inactive": "Inativas",
+        "totalValue": "Valor Total"
+      },
+      "filters": {
+        "all": "Todas",
+        "active": "Ativas",
+        "inactive": "Inativas",
+        "country": "País",
+        "allCountries": "Todos os países",
+        "search": "Buscar moedas..."
+      },
+      "table": {
+        "image": "Imagem",
+        "name": "Nome",
+        "country": "País",
+        "price": "Preço",
+        "stock": "Estoque",
+        "status": "Estado",
+        "actions": "Ações",
+        "noStock": "Sem estoque",
+        "units": "unidades",
+        "active": "Ativa",
+        "inactive": "Inativa",
+        "edit": "Editar",
+        "activate": "Ativar",
+        "deactivate": "Desativar",
+        "delete": "Eliminar"
+      },
+      "noResults": "Nenhuma moeda encontrada",
+      "deleteConfirm": {
+        "title": "Eliminar moeda?",
+        "message": "Esta ação não pode ser desfeita. A moeda será eliminada permanentemente.",
+        "coin": "Moeda a eliminar",
+        "cancel": "Cancelar",
+        "confirm": "Eliminar"
+      },
+      "messages": {
+        "deleted": "Moeda eliminada com sucesso",
+        "activated": "Moeda ativada com sucesso",
+        "deactivated": "Moeda desativada com sucesso",
+        "cannotActivate": "Não é possível ativar uma moeda sem estoque. Aumente o estoque primeiro.",
+        "error": "Erro ao atualizar moeda"
+      }
+    },
+    "newCoin": {
+      "title": "Criar Nova Moeda",
+      "name": "Nome da Moeda",
+      "namePlaceholder": "Ex: Moeda 1 Peso 1995",
+      "price": "Preço (ARS)",
+      "pricePlaceholder": "5000",
+      "description": "Descrição",
+      "descriptionPlaceholder": "Descrição detalhada da moeda...",
+      "country": "País",
+      "stock": "Estoque Disponível",
+      "stockPlaceholder": "0",
+      "stockHelp": "Quantidade de unidades disponíveis para venda",
+      "stockWarning": "Se o estoque for 0, a moeda será desativada automaticamente e não aparecerá no catálogo público.",
+      "images": "Imagens (máximo 5)",
+      "uploadImages": "Clique para carregar ou arraste as imagens",
+      "imageFormats": "PNG, JPG, WEBP (MÁX. 5 imagens)",
+      "creating": "Criando...",
+      "create": "Criar Moeda",
+      "cancel": "Cancelar",
+      "messages": {
+        "success": "Moeda criada com sucesso",
+        "maxImages": "Máximo 5 imagens por moeda",
+        "nameRequired": "O nome é obrigatório",
+        "priceInvalid": "O preço deve ser maior que 0",
+        "minOneImage": "Você deve adicionar pelo menos uma imagem",
+        "error": "Erro ao criar moeda"
+      }
+    },
+    "editCoin": {
+      "title": "Editar Moeda",
+      "currentImages": "Imagens atuais:",
+      "newImages": "Novas imagens:",
+      "saving": "Salvando...",
+      "save": "Salvar Alterações",
+      "messages": {
+        "success": "Moeda atualizada com sucesso",
+        "notFound": "Moeda não encontrada",
+        "error": "Erro ao atualizar moeda"
+      }
+    },
+    "common": {
+      "loading": "Carregando...",
+      "required": "*",
+      "important": "Importante:"
+    }
+  }
+}

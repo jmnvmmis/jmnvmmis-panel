@@ -1,0 +1,113 @@
+{
+  "translation": {
+    "header": {
+      "title": "JM NVMMIS",
+      "subtitle": "Administration Panel",
+      "logout": "Logout",
+      "newCoin": "New Coin",
+      "back": "Back"
+    },
+    "login": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "loading": "Signing in..."
+    },
+    "dashboard": {
+      "title": "Control Panel",
+      "stats": {
+        "coinTypes": "Coin Types",
+        "totalUnits": "total units",
+        "active": "Active",
+        "inactive": "Inactive",
+        "totalValue": "Total Value"
+      },
+      "filters": {
+        "all": "All",
+        "active": "Active",
+        "inactive": "Inactive",
+        "country": "Country",
+        "allCountries": "All countries",
+        "search": "Search coins..."
+      },
+      "table": {
+        "image": "Image",
+        "name": "Name",
+        "country": "Country",
+        "price": "Price",
+        "stock": "Stock",
+        "status": "Status",
+        "actions": "Actions",
+        "noStock": "Out of stock",
+        "units": "units",
+        "active": "Active",
+        "inactive": "Inactive",
+        "edit": "Edit",
+        "activate": "Activate",
+        "deactivate": "Deactivate",
+        "delete": "Delete"
+      },
+      "noResults": "No coins found",
+      "deleteConfirm": {
+        "title": "Delete coin?",
+        "message": "This action cannot be undone. The coin will be permanently deleted.",
+        "coin": "Coin to delete",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      },
+      "messages": {
+        "deleted": "Coin deleted successfully",
+        "activated": "Coin activated successfully",
+        "deactivated": "Coin deactivated successfully",
+        "cannotActivate": "Cannot activate a coin without stock. Increase stock first.",
+        "error": "Error updating coin"
+      }
+    },
+    "newCoin": {
+      "title": "Create New Coin",
+      "name": "Coin Name",
+      "namePlaceholder": "E.g: 1 Peso Coin 1995",
+      "price": "Price (ARS)",
+      "pricePlaceholder": "5000",
+      "description": "Description",
+      "descriptionPlaceholder": "Detailed coin description...",
+      "country": "Country",
+      "stock": "Available Stock",
+      "stockPlaceholder": "0",
+      "stockHelp": "Number of units available for sale",
+      "stockWarning": "If stock is 0, the coin will be automatically deactivated and won't appear in the public catalog.",
+      "images": "Images (max 5)",
+      "uploadImages": "Click to upload or drag images",
+      "imageFormats": "PNG, JPG, WEBP (MAX. 5 images)",
+      "creating": "Creating...",
+      "create": "Create Coin",
+      "cancel": "Cancel",
+      "messages": {
+        "success": "Coin created successfully",
+        "maxImages": "Maximum 5 images per coin",
+        "nameRequired": "Name is required",
+        "priceInvalid": "Price must be greater than 0",
+        "minOneImage": "You must add at least one image",
+        "error": "Error creating coin"
+      }
+    },
+    "editCoin": {
+      "title": "Edit Coin",
+      "currentImages": "Current images:",
+      "newImages": "New images:",
+      "saving": "Saving...",
+      "save": "Save Changes",
+      "messages": {
+        "success": "Coin updated successfully",
+        "notFound": "Coin not found",
+        "error": "Error updating coin"
+      }
+    },
+    "common": {
+      "loading": "Loading...",
+      "required": "*",
+      "important": "Important:"
+    }
+  }
+}
