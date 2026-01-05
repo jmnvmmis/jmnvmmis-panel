@@ -6,7 +6,9 @@ import { subirImagen, eliminarImagen } from '../services/storage';
 import { crearMoneda } from '../services/firestore';
 import ThemeToggle from '../components/ThemeToggle';
 import LanguageSelector from '../components/LanguageSelector';
+import Logo from '../components/Logo';
 import Toast from '../components/Toast';
+import CustomSelect from '../components/CustomSelect';
 import { PAISES } from '../utils/paises';
 
 const NuevaMoneda = () => {
@@ -29,7 +31,7 @@ const NuevaMoneda = () => {
   useEffect(() => {
     const updateBgColor = () => {
       const isDark = document.documentElement.classList.contains('dark');
-      setBgColor(isDark ? '#111827' : '#ffffff');
+      setBgColor(isDark ? '#111827' : '#FFFBEB');
     };
     
     updateBgColor();
@@ -144,26 +146,17 @@ const NuevaMoneda = () => {
       style={{ backgroundColor: bgColor }}
     >
       {/* Header elegante */}
-      <header className="bg-gradient-to-b from-black to-gray-900 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-bold font-display text-white tracking-wider">
-              JM NVMMIS
-            </h1>
-            <div className="mt-2 flex items-center justify-center md:justify-start gap-2">
-              <div className="h-px bg-amber-500 w-12"></div>
-              <p className="text-sm text-amber-400 tracking-[0.2em] uppercase font-light">
-                Nueva Moneda
-              </p>
-              <div className="h-px bg-amber-500 w-12"></div>
-            </div>
+      <header className="bg-gradient-to-r from-amber-100 to-amber-50 dark:bg-gradient-to-b dark:from-black dark:to-gray-900 shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="cursor-pointer" onClick={() => navigate('/')}>
+            <Logo variant="full" />
           </div>
           <div className="flex items-center gap-3">
             <LanguageSelector />
             <ThemeToggle />
             <button
               onClick={() => navigate('/')}
-              className="bg-gray-600 hover:bg-gray-500 text-white px-8 py-3 rounded-lg transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="bg-gray-600 hover:bg-gray-500 text-white px-6 md:px-8 py-2 md:py-3 rounded-lg transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm md:text-base"
             >
               {t('header.back')}
             </button>
@@ -174,8 +167,8 @@ const NuevaMoneda = () => {
 
       {/* Formulario */}
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700">
-          <h2 className="text-3xl font-bold font-display text-gray-900 dark:text-white mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-amber-200 dark:border-gray-700">
+          <h2 className="text-3xl font-bold font-display text-amber-900 dark:text-white mb-8">
             {t('newCoin.title')}
           </h2>
 
@@ -191,7 +184,7 @@ const NuevaMoneda = () => {
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Nombre */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+              <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                 </svg>
@@ -202,14 +195,14 @@ const NuevaMoneda = () => {
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder={t('newCoin.namePlaceholder')}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
                 required
               />
             </div>
 
             {/* Precio */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+              <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -222,14 +215,14 @@ const NuevaMoneda = () => {
                 placeholder={t('newCoin.pricePlaceholder')}
                 min="0"
                 step="0.01"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
                 required
               />
             </div>
 
             {/* Descripción */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+              <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
                 </svg>
@@ -240,34 +233,28 @@ const NuevaMoneda = () => {
                 onChange={(e) => setDescripcion(e.target.value)}
                 placeholder={t('newCoin.descriptionPlaceholder')}
                 rows="4"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
               />
             </div>
 
             {/* País */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+              <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
                 </svg>
                 {t('newCoin.country')}
               </label>
-              <select
+              <CustomSelect
                 value={pais}
-                onChange={(e) => setPais(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-              >
-                {PAISES.map((p) => (
-                  <option key={p.codigo} value={p.nombre}>
-                    {p.nombre}
-                  </option>
-                ))}
-              </select>
+                onChange={setPais}
+                options={PAISES.map(p => ({ value: p.nombre, label: p.nombre }))}
+              />
             </div>
 
             {/* Stock */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+              <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
@@ -280,7 +267,7 @@ const NuevaMoneda = () => {
                 placeholder={t('newCoin.stockPlaceholder')}
                 min="0"
                 step="1"
-                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
                 required
               />
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -298,7 +285,7 @@ const NuevaMoneda = () => {
 
             {/* Imágenes */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+              <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
