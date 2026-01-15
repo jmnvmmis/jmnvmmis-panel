@@ -10,6 +10,7 @@ import Logo from '../components/Logo';
 import Toast from '../components/Toast';
 import CustomSelect from '../components/CustomSelect';
 import { PAISES } from '../utils/paises';
+import { TIPOS_MONEDA, ORIENTACIONES } from '../utils/monedas';
 
 const EditarMoneda = () => {
   const { id } = useParams();
@@ -23,13 +24,39 @@ const EditarMoneda = () => {
   
   // Datos del formulario
   const [nombre, setNombre] = useState('');
-  const [precio, setPrecio] = useState('');
+  const [precios, setPrecios] = useState([{ precio: '', tipo_moneda: 'ARS' }]);
   const [descripcion, setDescripcion] = useState('');
   const [pais, setPais] = useState('');
   const [stock, setStock] = useState('0');
   const [imagenesActuales, setImagenesActuales] = useState([]);
   const [imagenesNuevas, setImagenesNuevas] = useState([]);
   const [previewsNuevas, setPreviewsNuevas] = useState([]);
+  
+  // Campos técnicos
+  const [composicion, setComposicion] = useState('');
+  const [peso, setPeso] = useState('');
+  const [diametro, setDiametro] = useState('');
+  const [grosor, setGrosor] = useState('');
+  const [orientacion, setOrientacion] = useState('');
+  const [referencias, setReferencias] = useState('');
+
+  // Funciones para manejar múltiples precios
+  const agregarPrecio = () => {
+    setPrecios([...precios, { precio: '', tipo_moneda: 'ARS' }]);
+  };
+
+  const eliminarPrecio = (index) => {
+    if (precios.length > 1) {
+      const nuevosPrecios = precios.filter((_, i) => i !== index);
+      setPrecios(nuevosPrecios);
+    }
+  };
+
+  const actualizarPrecio = (index, campo, valor) => {
+    const nuevosPrecios = [...precios];
+    nuevosPrecios[index][campo] = valor;
+    setPrecios(nuevosPrecios);
+  };
 
   useEffect(() => {
     cargarMoneda();
@@ -55,11 +82,27 @@ const EditarMoneda = () => {
     if (resultado.success && resultado.moneda) {
       const moneda = resultado.moneda;
       setNombre(moneda.nombre);
-      setPrecio(moneda.precio.toString());
+      // Cargar precios (array de objetos)
+      if (moneda.precios && Array.isArray(moneda.precios) && moneda.precios.length > 0) {
+        setPrecios(moneda.precios.map(p => ({
+          precio: p.precio.toString(),
+          tipo_moneda: p.tipo_moneda
+        })));
+      } else {
+        // Si no tiene precios, inicializar con uno vacío
+        setPrecios([{ precio: '', tipo_moneda: 'ARS' }]);
+      }
       setDescripcion(moneda.descripcion || '');
       setPais(moneda.pais || '');
       setStock((moneda.stock || 0).toString());
       setImagenesActuales(moneda.imagenes || []);
+      // Cargar campos técnicos
+      setComposicion(moneda.composicion || '');
+      setPeso(moneda.peso ? moneda.peso.toString() : '');
+      setDiametro(moneda.diametro ? moneda.diametro.toString() : '');
+      setGrosor(moneda.grosor ? moneda.grosor.toString() : '');
+      setOrientacion(moneda.orientacion || '');
+      setReferencias(moneda.referencias || '');
     } else {
       setError(t('editCoin.messages.notFound'));
     }
@@ -109,8 +152,17 @@ const EditarMoneda = () => {
         return;
       }
 
-      if (!precio || parseFloat(precio) <= 0) {
-        setError(t('newCoin.messages.priceInvalid'));
+      // Validar que haya al menos un precio
+      if (precios.length === 0) {
+        setError('Debe agregar al menos un precio');
+        setGuardando(false);
+        return;
+      }
+
+      // Validar que todos los precios sean válidos
+      const preciosValidos = precios.filter(p => p.precio && parseFloat(p.precio) > 0);
+      if (preciosValidos.length === 0) {
+        setError('Debe ingresar al menos un precio válido mayor a 0');
         setGuardando(false);
         return;
       }
@@ -142,12 +194,22 @@ const EditarMoneda = () => {
       const stockActualizado = parseInt(stock) || 0;
       const datos = {
         nombre: nombre.trim(),
-        precio: parseFloat(precio),
+        precios: preciosValidos.map(p => ({
+          precio: parseFloat(p.precio),
+          tipo_moneda: p.tipo_moneda
+        })),
         descripcion: descripcion.trim(),
         pais: pais.trim(),
         stock: stockActualizado,
-        activa: stockActualizado > 0, // Auto-desactivar si stock es 0
-        imagenes: todasLasImagenes
+        activa: stockActualizado > 0,
+        imagenes: todasLasImagenes,
+        // Campos técnicos
+        composicion: composicion.trim() || null,
+        peso: peso ? parseFloat(peso) : null,
+        diametro: diametro ? parseFloat(diametro) : null,
+        grosor: grosor ? parseFloat(grosor) : null,
+        orientacion: orientacion || null,
+        referencias: referencias.trim() || null
       };
 
       const resultado = await actualizarMoneda(id, datos);
@@ -238,24 +300,66 @@ const EditarMoneda = () => {
               />
             </div>
 
-            {/* Precio */}
+            {/* Precios */}
             <div>
               <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                {t('newCoin.price')} *
+                Precios *
               </label>
-              <input
-                type="number"
-                value={precio}
-                onChange={(e) => setPrecio(e.target.value)}
-                placeholder="5000"
-                min="0"
-                step="0.01"
-                className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
-                required
-              />
+              
+              <div className="space-y-3">
+                {precios.map((precioItem, index) => (
+                  <div key={index} className="flex gap-3 items-start">
+                    <div className="flex-1 grid grid-cols-3 gap-3">
+                      <div className="col-span-2">
+                        <input
+                          type="number"
+                          value={precioItem.precio}
+                          onChange={(e) => actualizarPrecio(index, 'precio', e.target.value)}
+                          onWheel={(e) => e.target.blur()}
+                          placeholder="5000,50"
+                          min="0"
+                          step="0.01"
+                          className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <CustomSelect
+                          value={precioItem.tipo_moneda}
+                          onChange={(valor) => actualizarPrecio(index, 'tipo_moneda', valor)}
+                          options={TIPOS_MONEDA.map(m => ({ value: m.codigo, label: `${m.simbolo} ${m.codigo}` }))}
+                        />
+                      </div>
+                    </div>
+                    {precios.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => eliminarPrecio(index)}
+                        className="mt-1 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
+                        title="Eliminar precio"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={agregarPrecio}
+                className="mt-4 flex items-center gap-2 px-4 py-2 bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 rounded-lg hover:bg-amber-200 dark:hover:bg-amber-900/40 transition-colors font-medium"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Agregar otro precio
+              </button>
             </div>
 
             {/* Descripción */}
@@ -273,6 +377,118 @@ const EditarMoneda = () => {
                 rows="4"
                 className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
               />
+            </div>
+
+            {/* Sección de Especificaciones Técnicas */}
+            <div className="border-t-2 border-amber-200 dark:border-amber-500/20 pt-6">
+              <h3 className="text-xl font-bold font-display text-amber-900 dark:text-white mb-6 flex items-center gap-2">
+                <svg className="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                </svg>
+                Especificaciones Técnicas (Opcional)
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Composición */}
+                <div>
+                  <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+                    Composición
+                  </label>
+                  <input
+                    type="text"
+                    value={composicion}
+                    onChange={(e) => setComposicion(e.target.value)}
+                    placeholder="Ej: Plata 900, Bronce, Cobre-Níquel"
+                    className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
+                  />
+                </div>
+
+                {/* Peso */}
+                <div>
+                  <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+                    Peso
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={peso}
+                      onChange={(e) => setPeso(e.target.value)}
+                      onWheel={(e) => e.target.blur()}
+                      placeholder="12,5"
+                      step="0.01"
+                      min="0"
+                      className="w-full px-5 py-3 pr-12 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-700 dark:text-amber-400 font-semibold">g</span>
+                  </div>
+                </div>
+
+                {/* Diámetro */}
+                <div>
+                  <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+                    Diámetro
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={diametro}
+                      onChange={(e) => setDiametro(e.target.value)}
+                      onWheel={(e) => e.target.blur()}
+                      placeholder="30,1"
+                      step="0.1"
+                      min="0"
+                      className="w-full px-5 py-3 pr-14 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-700 dark:text-amber-400 font-semibold">mm</span>
+                  </div>
+                </div>
+
+                {/* Grosor */}
+                <div>
+                  <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+                    Grosor
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={grosor}
+                      onChange={(e) => setGrosor(e.target.value)}
+                      onWheel={(e) => e.target.blur()}
+                      placeholder="1,9"
+                      step="0.1"
+                      min="0"
+                      className="w-full px-5 py-3 pr-14 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-amber-700 dark:text-amber-400 font-semibold">mm</span>
+                  </div>
+                </div>
+
+                {/* Orientación */}
+                <div>
+                  <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+                    Orientación
+                  </label>
+                  <CustomSelect
+                    value={orientacion}
+                    onChange={setOrientacion}
+                    options={ORIENTACIONES.map(o => ({ value: o.valor, label: o.label }))}
+                  />
+                </div>
+
+                {/* Referencias */}
+                <div>
+                  <label className="block text-sm font-semibold text-amber-700 dark:text-gray-300 mb-3 uppercase tracking-wider">
+                    Referencias
+                  </label>
+                  <input
+                    type="text"
+                    value={referencias}
+                    onChange={(e) => setReferencias(e.target.value)}
+                    placeholder="Ej: KM# 28, CJ# 17"
+                    className="w-full px-5 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md placeholder-amber-600 dark:placeholder-gray-400"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* País */}

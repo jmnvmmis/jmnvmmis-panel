@@ -12,6 +12,7 @@ import Logo from '../components/Logo';
 import Toast from '../components/Toast';
 import CustomSelect from '../components/CustomSelect';
 import { PAISES } from '../utils/paises';
+import { obtenerSimboloMoneda } from '../utils/monedas';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -448,8 +449,19 @@ const Dashboard = () => {
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-bold text-amber-600">
-                          ${moneda.precio?.toLocaleString('es-AR')}
+                        <div className="flex flex-col gap-1">
+                          {moneda.precios && Array.isArray(moneda.precios) && moneda.precios.length > 0 ? (
+                            moneda.precios.map((precioItem, idx) => (
+                              <div key={idx} className="text-sm font-bold text-amber-600">
+                                {obtenerSimboloMoneda(precioItem.tipo_moneda)}{precioItem.precio?.toLocaleString('es-AR')}
+                                <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
+                                  {precioItem.tipo_moneda}
+                                </span>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="text-sm text-gray-400">Sin precio</div>
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
