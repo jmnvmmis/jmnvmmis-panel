@@ -29,7 +29,12 @@
         "inactive": "Inactivas",
         "country": "País",
         "allCountries": "Todos los países",
-        "search": "Buscar monedas..."
+        "search": "Buscar monedas...",
+        "state": "Estado",
+        "sortBy": "Ordenar por",
+        "sortDate": "Fecha (más recientes)",
+        "sortName": "Nombre (A-Z)",
+        "sortPrice": "Precio (mayor a menor)"
       },
       "table": {
         "image": "Imagen",
@@ -40,6 +45,7 @@
         "status": "Estado",
         "actions": "Acciones",
         "noStock": "Sin stock",
+        "noPrice": "Sin precio",
         "units": "unidades",
         "active": "Activa",
         "inactive": "Inactiva",
@@ -49,6 +55,13 @@
         "delete": "Eliminar"
       },
       "noResults": "No se encontraron monedas",
+      "loadingCoins": "Cargando monedas...",
+      "noCoinsYet": "No hay monedas creadas aún.",
+      "noCoinsFiltered": "No se encontraron monedas con los filtros seleccionados.",
+      "createFirstCoin": "Crear primera moneda",
+      "showing": "Mostrando",
+      "of": "de",
+      "coins": "monedas",
       "deleteConfirm": {
         "title": "¿Eliminar moneda?",
         "message": "Esta acción no se puede deshacer. La moneda será eliminada permanentemente.",
@@ -83,6 +96,11 @@
       "creating": "Creando...",
       "create": "Crear Moneda",
       "cancel": "Cancelar",
+      "prices": "Precios",
+      "addAnotherPrice": "Agregar otro precio",
+      "deletePrice": "Eliminar precio",
+      "currentImages": "Imágenes actuales:",
+      "newImages": "Nuevas imágenes:",
       "messages": {
         "success": "Moneda creada exitosamente",
         "maxImages": "Máximo 5 imágenes por moneda",
@@ -94,20 +112,65 @@
     },
     "editCoin": {
       "title": "Editar Moneda",
-      "currentImages": "Imágenes actuales:",
-      "newImages": "Nuevas imágenes:",
       "saving": "Guardando...",
       "save": "Guardar Cambios",
+      "loadingCoin": "Cargando moneda...",
       "messages": {
         "success": "Moneda actualizada exitosamente",
         "notFound": "Moneda no encontrada",
         "error": "Error al actualizar la moneda"
       }
     },
+    "sections": {
+      "historical": {
+        "title": "Información Histórica (Opcional)",
+        "issuer": "Emisor",
+        "issuerPlaceholder": "Ej: España, Argentina",
+        "authority": "Autoridad (Rey/Presidente)",
+        "authorityPlaceholder": "Ej: Fernando VI (1746-1759)",
+        "year": "Año(s) / Periodo",
+        "yearPlaceholder": "Ej: 1754-1759, 2020",
+        "coinType": "Tipo de Moneda",
+        "coinTypePlaceholder": "Ej: Monedas circulantes normales"
+      },
+      "denomination": {
+        "title": "Denominación (Opcional)",
+        "faceValue": "Valor Facial",
+        "faceValuePlaceholder": "Ej: 2 Reales, 50 Centavos",
+        "monetaryUnit": "Unidad Monetaria / Sistema",
+        "monetaryUnitPlaceholder": "Ej: Real (1497-1833), Peso Argentino"
+      },
+      "specifications": {
+        "title": "Especificaciones Técnicas (Opcional)",
+        "composition": "Composición",
+        "compositionPlaceholder": "Ej: Plata 900, Bronce, Cobre-Níquel",
+        "weight": "Peso",
+        "weightPlaceholder": "12,5",
+        "diameter": "Diámetro",
+        "diameterPlaceholder": "30,1",
+        "thickness": "Grosor",
+        "thicknessPlaceholder": "1,9",
+        "shape": "Forma",
+        "shapePlaceholder": "Ej: Circular, Hexagonal",
+        "technique": "Técnica de Acuñación",
+        "techniquePlaceholder": "Ej: Acuñación a máquina, Molino",
+        "orientation": "Orientación"
+      },
+      "cataloging": {
+        "title": "Catalogación (Opcional)",
+        "demonetized": "Moneda Desmonetizada",
+        "demonetizedHelp": "Marque si la moneda está fuera de circulación oficial",
+        "catalogNumber": "Número de Catálogo",
+        "catalogNumberPlaceholder": "Ej: N#14864, KM#28",
+        "references": "Referencias",
+        "referencesPlaceholder": "Ej: KM#386.1, CJ#17"
+      }
+    },
     "common": {
       "loading": "Cargando...",
       "required": "*",
-      "important": "Importante:"
+      "important": "Importante:",
+      "select": "Seleccionar..."
     }
   }
 }

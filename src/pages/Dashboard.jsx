@@ -11,13 +11,15 @@ import LanguageSelector from '../components/LanguageSelector';
 import Logo from '../components/Logo';
 import Toast from '../components/Toast';
 import CustomSelect from '../components/CustomSelect';
-import { PAISES } from '../utils/paises';
+import { obtenerPaises } from '../utils/paises';
 import { obtenerSimboloMoneda } from '../utils/monedas';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const paises = obtenerPaises(i18n.language);
+  
   const [monedas, setMonedas] = useState([]);
   const [monedasFiltradas, setMonedasFiltradas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -312,7 +314,7 @@ const Dashboard = () => {
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
                 </svg>
-                Estado
+                {t('dashboard.filters.state')}
               </label>
               <CustomSelect
                 value={filtroEstado}
@@ -330,15 +332,15 @@ const Dashboard = () => {
                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
                 </svg>
-                Ordenar por
+                {t('dashboard.filters.sortBy')}
               </label>
               <CustomSelect
                 value={ordenamiento}
                 onChange={setOrdenamiento}
                 options={[
-                  { value: 'fecha', label: 'Fecha (más recientes)' },
-                  { value: 'nombre', label: 'Nombre (A-Z)' },
-                  { value: 'precio', label: 'Precio (mayor a menor)' }
+                  { value: 'fecha', label: t('dashboard.filters.sortDate') },
+                  { value: 'nombre', label: t('dashboard.filters.sortName') },
+                  { value: 'precio', label: t('dashboard.filters.sortPrice') }
                 ]}
               />
             </div>
@@ -348,7 +350,7 @@ const Dashboard = () => {
             <svg className="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span>Mostrando <strong className="text-amber-600">{monedasFiltradas.length}</strong> de <strong className="text-amber-600">{monedas.length}</strong> monedas</span>
+            <span>{t('dashboard.showing')} <strong className="text-amber-600">{monedasFiltradas.length}</strong> {t('dashboard.of')} <strong className="text-amber-600">{monedas.length}</strong> {t('dashboard.coins')}</span>
           </div>
         </div>
 
@@ -357,7 +359,7 @@ const Dashboard = () => {
           <div className="bg-white dark:bg-gray-800 p-12 rounded-2xl shadow-xl text-center border border-amber-200 dark:border-gray-700">
             <div className="flex flex-col items-center gap-4">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500"></div>
-              <p className="text-gray-600 dark:text-gray-400 text-lg">Cargando monedas...</p>
+              <p className="text-gray-600 dark:text-gray-400 text-lg">{t('dashboard.loadingCoins')}</p>
             </div>
           </div>
         ) : monedasFiltradas.length === 0 ? (
@@ -368,8 +370,8 @@ const Dashboard = () => {
               </svg>
               <p className="text-gray-500 dark:text-gray-400 text-xl mb-6 font-display">
                 {monedas.length === 0 
-                  ? 'No hay monedas creadas aún.'
-                  : 'No se encontraron monedas con los filtros seleccionados.'}
+                  ? t('dashboard.noCoinsYet')
+                  : t('dashboard.noCoinsFiltered')}
               </p>
               {monedas.length === 0 && (
                 <button
@@ -379,7 +381,7 @@ const Dashboard = () => {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
-                  Crear primera moneda
+                  {t('dashboard.createFirstCoin')}
                 </button>
               )}
             </div>
@@ -460,7 +462,7 @@ const Dashboard = () => {
                               </div>
                             ))
                           ) : (
-                            <div className="text-sm text-gray-400">Sin precio</div>
+                            <div className="text-sm text-gray-400">{t('dashboard.table.noPrice')}</div>
                           )}
                         </div>
                       </td>

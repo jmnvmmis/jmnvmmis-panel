@@ -42,7 +42,7 @@ const SeccionImagenes = ({ formState }) => {
       {/* Previews de imágenes existentes (para edición) */}
       {formState.imagenesExistentes.length > 0 && (
         <div className="mb-4">
-          <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Imágenes actuales:</p>
+          <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">{t('newCoin.currentImages')}</p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {formState.imagenesExistentes.map((imagen, index) => (
               <div key={index} className="relative group">
@@ -69,7 +69,7 @@ const SeccionImagenes = ({ formState }) => {
       {/* Previews de nuevas imágenes */}
       {formState.previews.length > 0 && (
         <div>
-          <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Nuevas imágenes:</p>
+          <p className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">{t('newCoin.newImages')}</p>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {formState.previews.map((preview, index) => (
               <div key={index} className="relative group">

@@ -1,9 +1,14 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-export default function CustomSelect({ value, onChange, options, placeholder = 'Seleccionar...', className = '' }) {
+export default function CustomSelect({ value, onChange, options, placeholder, className = '' }) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  // Placeholder por defecto traducido si no se provee uno
+  const defaultPlaceholder = placeholder || t('common.select', 'Seleccionar...');
 
   // Cerrar al hacer click fuera
   useEffect(() => {
@@ -27,7 +32,7 @@ export default function CustomSelect({ value, onChange, options, placeholder = '
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-4 py-3 bg-amber-50 dark:bg-white/10 backdrop-blur-sm border-2 border-amber-300 dark:border-amber-500/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-900 dark:text-white transition-all font-medium shadow-sm hover:shadow-md cursor-pointer text-left flex items-center justify-between"
       >
-        <span>{selectedOption?.label || placeholder}</span>
+        <span>{selectedOption?.label || defaultPlaceholder}</span>
         <svg
           className={`w-5 h-5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"

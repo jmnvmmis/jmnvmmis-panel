@@ -1,16 +1,41 @@
 // Tipos de moneda disponibles para los precios
-export const TIPOS_MONEDA = [
+export const TIPOS_MONEDA_ES = [
   { codigo: 'ARS', nombre: 'Peso Argentino', simbolo: '$' },
   { codigo: 'USD', nombre: 'Dólar Estadounidense', simbolo: 'US$' },
   { codigo: 'EUR', nombre: 'Euro', simbolo: '€' }
 ];
 
+export const TIPOS_MONEDA_EN = [
+  { codigo: 'ARS', nombre: 'Argentine Peso', simbolo: '$' },
+  { codigo: 'USD', nombre: 'US Dollar', simbolo: 'US$' },
+  { codigo: 'EUR', nombre: 'Euro', simbolo: '€' }
+];
+
 // Tipos de orientación de monedas
-export const ORIENTACIONES = [
+export const ORIENTACIONES_ES = [
   { valor: '', label: 'Sin especificar' },
   { valor: 'Alineación moneda ↑↓', label: 'Alineación moneda ↑↓' },
   { valor: 'Alineación moneda ↑↑', label: 'Alineación moneda ↑↑' }
 ];
+
+export const ORIENTACIONES_EN = [
+  { valor: '', label: 'Not specified' },
+  { valor: 'Alineación moneda ↑↓', label: 'Coin alignment ↑↓' },
+  { valor: 'Alineación moneda ↑↑', label: 'Coin alignment ↑↑' }
+];
+
+// Funciones helper para obtener datos según idioma
+export const obtenerTiposMoneda = (idioma = 'es') => {
+  return idioma === 'en' ? TIPOS_MONEDA_EN : TIPOS_MONEDA_ES;
+};
+
+export const obtenerOrientaciones = (idioma = 'es') => {
+  return idioma === 'en' ? ORIENTACIONES_EN : ORIENTACIONES_ES;
+};
+
+// Mantener exportaciones legacy para compatibilidad
+export const TIPOS_MONEDA = TIPOS_MONEDA_ES;
+export const ORIENTACIONES = ORIENTACIONES_ES;
 
 // Función helper para obtener el símbolo de una moneda
 export const obtenerSimboloMoneda = (codigo) => {

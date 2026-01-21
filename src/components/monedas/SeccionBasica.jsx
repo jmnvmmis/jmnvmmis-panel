@@ -1,10 +1,11 @@
 // Sección básica del formulario: Nombre, Precios y Descripción
 import { useTranslation } from 'react-i18next';
 import CustomSelect from '../CustomSelect';
-import { TIPOS_MONEDA } from '../../utils/monedas';
+import { obtenerTiposMoneda } from '../../utils/monedas';
 
 const SeccionBasica = ({ formState }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const tiposMoneda = obtenerTiposMoneda(i18n.language);
 
   return (
     <>
@@ -32,7 +33,7 @@ const SeccionBasica = ({ formState }) => {
           <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          Precios *
+          {t('newCoin.prices')} *
         </label>
         
         <div className="space-y-3">
@@ -56,7 +57,7 @@ const SeccionBasica = ({ formState }) => {
                   <CustomSelect
                     value={precioItem.tipo_moneda}
                     onChange={(valor) => formState.actualizarPrecio(index, 'tipo_moneda', valor)}
-                    options={TIPOS_MONEDA.map(m => ({ value: m.codigo, label: `${m.simbolo} ${m.codigo}` }))}
+                    options={tiposMoneda.map(m => ({ value: m.codigo, label: `${m.simbolo} ${m.codigo}` }))}
                   />
                 </div>
               </div>
@@ -65,7 +66,7 @@ const SeccionBasica = ({ formState }) => {
                   type="button"
                   onClick={() => formState.eliminarPrecio(index)}
                   className="mt-1 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
-                  title="Eliminar precio"
+                  title={t('newCoin.deletePrice')}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -84,7 +85,7 @@ const SeccionBasica = ({ formState }) => {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
-          Agregar otro precio
+          {t('newCoin.addAnotherPrice')}
         </button>
       </div>
 

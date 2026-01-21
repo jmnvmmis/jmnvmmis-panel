@@ -16,7 +16,7 @@ const FormularioMoneda = ({ formState, modoEdicion = false }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-amber-200 dark:border-gray-700">
       <h2 className="text-3xl font-bold font-display text-amber-900 dark:text-white mb-8">
-        {modoEdicion ? 'Editar Moneda' : t('newCoin.title')}
+        {modoEdicion ? t('editCoin.title') : t('newCoin.title')}
       </h2>
 
       {formState.error && (
@@ -60,14 +60,14 @@ const FormularioMoneda = ({ formState, modoEdicion = false }) => {
             {formState.loading ? (
               <>
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                {modoEdicion ? 'Guardando...' : t('newCoin.creating')}
+                {modoEdicion ? t('editCoin.saving') : t('newCoin.creating')}
               </>
             ) : (
               <>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
-                {modoEdicion ? 'Guardar Cambios' : t('newCoin.create')}
+                {modoEdicion ? t('editCoin.save') : t('newCoin.create')}
               </>
             )}
           </button>

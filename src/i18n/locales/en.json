@@ -29,7 +29,12 @@
         "inactive": "Inactive",
         "country": "Country",
         "allCountries": "All countries",
-        "search": "Search coins..."
+        "search": "Search coins...",
+        "state": "State",
+        "sortBy": "Sort by",
+        "sortDate": "Date (most recent)",
+        "sortName": "Name (A-Z)",
+        "sortPrice": "Price (highest to lowest)"
       },
       "table": {
         "image": "Image",
@@ -40,6 +45,7 @@
         "status": "Status",
         "actions": "Actions",
         "noStock": "Out of stock",
+        "noPrice": "No price",
         "units": "units",
         "active": "Active",
         "inactive": "Inactive",
@@ -49,6 +55,13 @@
         "delete": "Delete"
       },
       "noResults": "No coins found",
+      "loadingCoins": "Loading coins...",
+      "noCoinsYet": "No coins created yet.",
+      "noCoinsFiltered": "No coins found with the selected filters.",
+      "createFirstCoin": "Create first coin",
+      "showing": "Showing",
+      "of": "of",
+      "coins": "coins",
       "deleteConfirm": {
         "title": "Delete coin?",
         "message": "This action cannot be undone. The coin will be permanently deleted.",
@@ -83,6 +96,11 @@
       "creating": "Creating...",
       "create": "Create Coin",
       "cancel": "Cancel",
+      "prices": "Prices",
+      "addAnotherPrice": "Add another price",
+      "deletePrice": "Delete price",
+      "currentImages": "Current images:",
+      "newImages": "New images:",
       "messages": {
         "success": "Coin created successfully",
         "maxImages": "Maximum 5 images per coin",
@@ -94,20 +112,65 @@
     },
     "editCoin": {
       "title": "Edit Coin",
-      "currentImages": "Current images:",
-      "newImages": "New images:",
       "saving": "Saving...",
       "save": "Save Changes",
+      "loadingCoin": "Loading coin...",
       "messages": {
         "success": "Coin updated successfully",
         "notFound": "Coin not found",
         "error": "Error updating coin"
       }
     },
+    "sections": {
+      "historical": {
+        "title": "Historical Information (Optional)",
+        "issuer": "Issuer",
+        "issuerPlaceholder": "E.g: Spain, Argentina",
+        "authority": "Authority (King/President)",
+        "authorityPlaceholder": "E.g: Fernando VI (1746-1759)",
+        "year": "Year(s) / Period",
+        "yearPlaceholder": "E.g: 1754-1759, 2020",
+        "coinType": "Coin Type",
+        "coinTypePlaceholder": "E.g: Regular circulating coins"
+      },
+      "denomination": {
+        "title": "Denomination (Optional)",
+        "faceValue": "Face Value",
+        "faceValuePlaceholder": "E.g: 2 Reales, 50 Cents",
+        "monetaryUnit": "Monetary Unit / System",
+        "monetaryUnitPlaceholder": "E.g: Real (1497-1833), Argentine Peso"
+      },
+      "specifications": {
+        "title": "Technical Specifications (Optional)",
+        "composition": "Composition",
+        "compositionPlaceholder": "E.g: Silver 900, Bronze, Copper-Nickel",
+        "weight": "Weight",
+        "weightPlaceholder": "12.5",
+        "diameter": "Diameter",
+        "diameterPlaceholder": "30.1",
+        "thickness": "Thickness",
+        "thicknessPlaceholder": "1.9",
+        "shape": "Shape",
+        "shapePlaceholder": "E.g: Circular, Hexagonal",
+        "technique": "Minting Technique",
+        "techniquePlaceholder": "E.g: Machine striking, Mill",
+        "orientation": "Orientation"
+      },
+      "cataloging": {
+        "title": "Cataloging (Optional)",
+        "demonetized": "Demonetized Coin",
+        "demonetizedHelp": "Check if the coin is out of official circulation",
+        "catalogNumber": "Catalog Number",
+        "catalogNumberPlaceholder": "E.g: N#14864, KM#28",
+        "references": "References",
+        "referencesPlaceholder": "E.g: KM#386.1, CJ#17"
+      }
+    },
     "common": {
       "loading": "Loading...",
       "required": "*",
-      "important": "Important:"
+      "important": "Important:",
+      "select": "Select..."
     }
   }
 }

@@ -1,10 +1,11 @@
 // Sección de stock y país
 import { useTranslation } from 'react-i18next';
 import CustomSelect from '../CustomSelect';
-import { PAISES } from '../../utils/paises';
+import { obtenerPaises } from '../../utils/paises';
 
 const SeccionStock = ({ formState }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const paises = obtenerPaises(i18n.language);
 
   return (
     <div className="border-t-2 border-amber-200 dark:border-amber-500/20 pt-6">
@@ -20,7 +21,7 @@ const SeccionStock = ({ formState }) => {
           <CustomSelect
             value={formState.pais}
             onChange={formState.setPais}
-            options={PAISES.map(p => ({ value: p.nombre, label: p.nombre }))}
+            options={paises.map(p => ({ value: p.nombre, label: p.nombre }))}
           />
         </div>
 
